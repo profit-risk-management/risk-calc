@@ -1,0 +1,28 @@
+<h4
+  [ngClass]="{
+    'long': isLong,
+    'short': !isLong,
+  }"
+>{{ title }}</h4>
+
+<form [formGroup]="form">
+  <mat-form-field>
+    <mat-label>Stop</mat-label>
+    <input matInput type="number" formControlName="stop">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Entry</mat-label>
+    <input matInput type="number" formControlName="entry">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Coin Position</mat-label>
+    <input matInput type="number" formControlName="coinPosition">
+  </mat-form-field>
+
+  <mat-form-field *ngFor="let take of takeControls; let i = index">
+    <mat-label>Take 1/{{listOfTakeProfitPropName[i]}}</mat-label>
+    <input matInput type="number" [formControl]="take">
+  </mat-form-field>
+</form>

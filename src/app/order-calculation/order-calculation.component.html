@@ -1,0 +1,20 @@
+<header>
+  <form [formGroup]="form">
+    <mat-form-field>
+      <mat-label>Risk (set for all items)</mat-label>
+      <input matInput type="number" formControlName="risk">
+    </mat-form-field>
+  </form>
+
+  <div class="actions">
+    <button mat-raised-button color="accent" (click)="addItem()">Add</button>
+  </div>
+</header>
+
+<app-calculation-item
+  *ngFor="let formItem of calculatedStopForm.controls; let i = index;"
+  [position]="i"
+  [form]="$any(formItem)"
+  [risk]="this.form.get('risk')?.value"
+  (deleteItem)="delete($event)"
+></app-calculation-item>
