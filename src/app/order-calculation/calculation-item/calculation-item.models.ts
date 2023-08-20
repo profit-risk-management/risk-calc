@@ -5,6 +5,8 @@ export interface GapPercentageListItem {
 
 export interface PositionItem {
   price: number;
+  openPrice: number;
+  stopLimitPrice: number;
   stopPercentage: number;
   stopSize: number;
   gapPercentage: number;
@@ -13,4 +15,5 @@ export interface PositionItem {
   riskProfit: Record<number, number>;
   risk: number;
   isLongPosition: boolean;
+  isManualStop: boolean;
 }

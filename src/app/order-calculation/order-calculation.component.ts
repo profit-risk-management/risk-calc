@@ -24,6 +24,8 @@ export class OrderCalculationComponent {
   public createCalculatedStopGroup(): FormGroup {
     return this.fb.group({
       price: [0],
+      openPrice: [0],
+      stopLimitPrice: [0],
       stopPercentage: [0.2],
       stopSize: [{ value: 0, disabled: true }],
       gapPercentage: [0.2],
@@ -37,6 +39,7 @@ export class OrderCalculationComponent {
       }),
       risk: [0],
       isLongPosition: true,
+      isManualStop: true,
     })
   }
 

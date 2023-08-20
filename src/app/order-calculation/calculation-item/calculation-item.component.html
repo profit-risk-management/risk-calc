@@ -1,14 +1,30 @@
 <mat-card>
   <mat-card-content>
     <form [formGroup]="form">
+      <div class="action-bar">
+        <mat-slide-toggle class="is-long-slider" formControlName="isLongPosition">Long</mat-slide-toggle>
+
+        <mat-slide-toggle formControlName="isManualStop">Manual Stop</mat-slide-toggle>
+      </div>
+
       <mat-form-field>
         <mat-label>Price</mat-label>
         <input matInput type="number" formControlName="price">
       </mat-form-field>
 
-      <mat-form-field>
+      <mat-form-field *ngIf="!isManualStop">
         <mat-label>Stop (from %)</mat-label>
         <input matInput type="number" formControlName="stopPercentage">
+      </mat-form-field>
+
+      <mat-form-field *ngIf="isManualStop">
+        <mat-label>Open Price</mat-label>
+        <input matInput type="number" formControlName="openPrice">
+      </mat-form-field>
+
+      <mat-form-field *ngIf="isManualStop">
+        <mat-label>Stop Limit Price</mat-label>
+        <input matInput type="number" formControlName="stopLimitPrice">
       </mat-form-field>
 
       <mat-form-field>
@@ -42,8 +58,6 @@
         <mat-label>Risk</mat-label>
         <input matInput type="number" formControlName="risk">
       </mat-form-field>
-
-      <mat-slide-toggle formControlName="isLongPosition">Long</mat-slide-toggle>
 
 <!--      <mat-form-field *ngFor="let risk of riskControls; let i = index">-->
 <!--        <mat-label>Risk 1/{{listOfRiskPropName[i]}}</mat-label>-->

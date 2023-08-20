@@ -41,6 +41,10 @@ export class CalculationItemComponent implements OnInit, OnChanges, OnDestroy {
     return this.form.get('riskProfit') as FormGroup;
   }
 
+  get isManualStop(): boolean {
+    return this.form.get('isManualStop')?.value;
+  }
+
   constructor(
     private fb: FormBuilder,
   ) {
@@ -85,7 +89,8 @@ export class CalculationItemComponent implements OnInit, OnChanges, OnDestroy {
         .pipe(
           map((_) => this.form.getRawValue()),
           tap((position: PositionItem) => {
-            const stopSize = this.stopCalc(position.price, position.stopPercentage);
+            let stopSize = this.stopCalc();
+
             const gap = this.gapCalc(stopSize, position.gapPercentage);
 
             this.form.patchValue({
@@ -110,8 +115,17 @@ export class CalculationItemComponent implements OnInit, OnChanges, OnDestroy {
     )
   }
 
-  private stopCalc(price: number, stopPercentage: number): number {
-    return price * (stopPercentage / 100);
+  private stopCalc(): number {
+    const formData = this.form.getRawValue();
+    let stop = 0;
+
+    if (this.isManualStop) {
+      stop = Math.abs(formData.openPrice - formData.stopLimitPrice);
+    } else {
+      stop = formData.price * (formData.stopPercentage / 100);
+    }
+
+    return stop;
   }
 
   private gapCalc(stopSize: number, gapPercentage: number): number {
